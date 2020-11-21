@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<title>Espace Client</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1,  minimum-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="common/css/app.min.css">
+<script src="common/js/jQuery2.0.2.min.js"></script>
+<script src="common/js/main.min.js"></script>
+<style>
+    .a{
+        margin: 22px;
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="app-wrapper">
+
+<nav class="main-menu">
+<a class="a" href="index.html">Home</a>
+<a class="a" href="sensor.html">Capteur</a>
+<a class="a" href="facture.html">Facture</a>
+<a class="a" href="reclamation.html">Réclamation</a>
+<a class="a" href="login.html">Déconnexion.</a>
+</nav><!--#main-menu-->
+
+<header>
+<div class="main-menu-button main-menu-button-left"><a class="menu">&nbsp;</a></div>
+<div class="main-menu-button main-menu-button-right"><a href="settings.html" class="gear">&nbsp;</a></div>
+<h1>Espace Client</h1>
+</header>
+
+<div class="app-content">
+
+<div class="detail-view-header with-action-panel">
+    <div class="content">
+        <h1 id="a">Samedi 12/03/2020</h1>
+        <div class="status status-green"><span class="status-dot">&nbsp;</span>Connecté</div>
+        <div class="detail-view-action-panel">
+            <a href="#" class="action-history open-modal">&nbsp;</a>
+            <a href="#" class="action-closeloss open-modal">&nbsp;</a>
+            <a onclick="alert('Appel Responsalbe');" class="action-phone">&nbsp;</a>
+        </div>
+    </div><!--.content-->
+</div><!--.detail-view-header-->
+
+<section class="opportunity-overview">
+    <div class="content">
+        <h1 style="color: blue;">Bienvenue</h1>
+  
+    </div>
+</section>
+
+<section class="border-top">
+    <div class="content">
+        
+            <div class="card-body">
+                    <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                      <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 328px;" width="328" height="250" class="chartjs-render-monitor"></canvas>
+                    </div>
+                  </div>
+        
+    </div>
+</section>
+
+
+
+
+</div><!--#app-content-->
+</div><!--#app-wrapper-->
+
+<div class="modal">
+    <div class="background"></div>
+    <div class="modal-content-wrapper">
+        <div class="modal-content">
+            <div class="detail-view-header">
+                <div class="content">
+                    <h1>Header Here</h1>
+                </div><!--.content-->
+            </div><!--.detail-view-header-->
+            <section style="min-height:70%;">
+                <div class="content">
+                    <center>Content Here</center>
+                </div><!-- .content -->
+            </section>
+            <section>
+                <div class="content">
+                    <div class="data-capture-buttons two-buttons">
+                        <div class="content">
+                            <a href="#" class="close-modal">cancel</a>
+                            <a href="#" class="close-modal">submit</a>
+                        </div><!-- .content -->
+                    </div><!--.data-capture-buttons-->
+                </div><!-- .content -->
+            </section>
+        </div> <!-- .modal-content -->
+    </div><!-- .modal-content-wrapper -->
+</div><!-- #modal.modal -->
+
+
+<script>
+
+
+var d = new Date().toLocaleString();
+document.getElementById("a").innerText = d;
+  
+</script>
+
+<script src="./ChartJS/Chart.js"></script>
+<script src="./ChartJS/Chart.js"></script>
+<script src="./ChartJS/Chart.bundle.min.js"></script>
+<script>
+
+
+        function fixdata(vlabels, vdata){
+        
+        
+        
+        
+            var areaChartData = {
+              labels  : vlabels,
+              datasets: [
+                {
+                  label               : 'Digital Goods',
+                  backgroundColor     : 'rgba(60,141,188,0.9)',
+                  borderColor         : 'rgba(60,141,188,0.8)',
+                  pointRadius          : false,
+                  pointColor          : '#3b8bba',
+                  pointStrokeColor    : 'rgba(60,141,188,1)',
+                  pointHighlightFill  : '#fff',
+                  pointHighlightStroke: 'rgba(60,141,188,1)',
+                  data                : vdata
+                },
+                {
+                  label               : 'Electronics',
+                  backgroundColor     : 'rgba(210, 214, 222, 1)',
+                  borderColor         : 'rgba(210, 214, 222, 1)',
+                  pointRadius         : false,
+                  pointColor          : 'rgba(210, 214, 222, 1)',
+                  pointStrokeColor    : '#c1c7d1',
+                  pointHighlightFill  : '#fff',
+                  pointHighlightStroke: 'rgba(220,220,220,1)',
+                  data                : vdata
+                },
+              ]
+            }
+        
+            var areaChartOptions = {
+              maintainAspectRatio : false,
+              responsive : true,
+              legend: {
+                display: false
+              },
+              scales: {
+                xAxes: [{
+                  gridLines : {
+                    display : false,
+                  }
+                }],
+                yAxes: [{
+                  gridLines : {
+                    display : false,
+                  }
+                }]
+              }
+            }
+        
+            // This will get the first returned node in the jQuery collection.
+        
+        
+            //-------------
+            //- LINE CHART -
+            //--------------
+            var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+            var lineChartOptions = jQuery.extend(true, {}, areaChartOptions)
+            var lineChartData = jQuery.extend(true, {}, areaChartData)
+            lineChartData.datasets[0].fill = false;
+            lineChartData.datasets[1].fill = false;
+            lineChartOptions.datasetFill = false
+        
+            var lineChart = new Chart(lineChartCanvas, { 
+              type: 'line',
+              data: lineChartData, 
+              options: lineChartOptions
+            })
+        
+            //-------------
+            //- DONUT CHART -
+            //-------------
+        
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+         
+        
+            //-------------
+            //- PIE CHART -
+            //-------------
+            // Get context with jQuery - using jQuery's .get() method.
+        
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+        
+        
+            //-------------
+            //- BAR CHART -
+           
+        
+            //---------------------
+            //- STACKED BAR CHART -
+            //---------------------
+        
+        
+        
+        }
+        
+        
+        
+        var vlabels = [];
+        var vdata = [];
+               
+                // Create a request variable and assign a new XMLHttpRequest object to it.
+                var request = new XMLHttpRequest()
+            
+            // Open a new connection, using the GET request on the URL endpoint
+            request.open('GET', 'http://127.0.0.1:3000/mesures', true)
+            
+            request.onload = function() {
+            // Begin accessing JSON data here
+            
+            // Begin accessing JSON data here
+            var data = JSON.parse(this.response)
+           
+            
+            console.log(data);
+             j =  0;
+            data.forEach(i => {
+
+                var res = i.createdAt.substring(0, 10);
+            
+        
+             vlabels[j] = res;
+             vdata[j] = parseInt(i.valeur);
+            j = j +  1;
+        
+            
+            })
+        
+            fixdata(vlabels,vdata);
+            
+            
+            }
+            
+            // Send request
+            request.send();
+                
+        
+        
+        
+        
+        
+        </script>
+
+</body>
+</html>
